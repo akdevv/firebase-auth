@@ -1,21 +1,31 @@
+import axios from "axios";
 import { useState } from "react";
-// import { auth } from "../config/firebase";
-// import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../config/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 function Register() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
+	// Email Register
 	const handleRegister = async () => {
-		console.log("email: ", email);
-		console.log("password: ", password);
+		try {
+			const data = await createUserWithEmailAndPassword(
+				auth,
+				email,
+				password
+			);
 
-		// const data = await createUserWithEmailAndPassword(
-		// 	auth,
-		// 	email,
-		// 	password
-		// );
-		// console.log(data);
+			console.log(data);
+
+			const response = await axios.post(
+				`${import.meta.env.VITE_BACKEND_DOMAIN}/api/auth/register`,
+				{ data }
+			);
+			console.log("Backend response = ", response.data);
+		} catch (err) {
+			console.error("Something went wrong!", err.message);
+		}
 	};
 
 	return (

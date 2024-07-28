@@ -6,6 +6,7 @@ import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 function Login() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [name, setName] = useState("null");
 
 	// Email Login
 	const handleLogin = async () => {
@@ -34,19 +35,19 @@ function Login() {
 			const token = await data.user.getIdToken();
 
 			const response = await axios.post(
-				`${import.meta.env.VITE_BACKEND_DOMAIN}/api/auth/login/google`,
+				`${import.meta.env.VITE_BACKEND_DOMAIN}/api/auth/google-auth`,
 				{ token }
 			);
-			console.log("response = ", response);
+			console.log("response = ", response.data.user);
+			if (response.data) {
+				setName(response.data.user.name);
+			}
 		} catch (err) {
 			console.error("Something went wrong!", err.message);
 		}
 	};
 
-	// Phone Login
-	const handlePhoneLogin = async () => {
-		console.log("Do it later!");
-	};
+	// add apple login also
 
 	return (
 		<div>
@@ -68,7 +69,14 @@ function Login() {
 			<br />
 			<br />
 			<button onClick={handleGoogleLogin}>Google</button>
-			<button onClick={handlePhoneLogin}>Phone</button>
+			<div
+				style={{
+					marginTop: "5px",
+					textDecoration: "underline",
+				}}
+			>
+				Welcome, {name}
+			</div>
 		</div>
 	);
 }
