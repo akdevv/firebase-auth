@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Home() {
 	return (
 		<>
-			<div>Welcome to Firebase Auth</div>
+			<div className="main-title">Firebase Auth</div>
 			<div>
 				<button>
 					<Link to="login">Login</Link>
