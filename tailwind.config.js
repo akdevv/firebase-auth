@@ -2,7 +2,12 @@
 export default {
 	content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 	theme: {
-		extend: {},
+		extend: {
+			fontFamily: {
+				archivo: ["Archivo Black", "sans"],
+				lexend: ["Lexend", "sans"],
+			},
+		},
 	},
 	plugins: [],
 };
