@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { auth, googleProvider } from "../config/firebase";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 
@@ -46,26 +47,91 @@ function Login() {
 	// add apple login also
 
 	return (
-		<div>
-			<div>
-				<input
-					type="text"
-					placeholder="Email"
-					value={email}
-					onChange={(evt) => setEmail(evt.target.value)}
-				/>
-				<input
-					type="text"
-					placeholder="Password"
-					value={password}
-					onChange={(evt) => setPassword(evt.target.value)}
-				/>
+		<>
+			<div className="flex w-3/5 h-auto bg-white rounded-md shadow-neo">
+				<div className="w-1/2 m-6 bg-gray-400 rounded-md">img</div>
+				<div className="w-1/2 mx-6 my-10">
+					<h1 className="text-3xl text-center font-archivo">Login</h1>
+					{/* inputs */}
+					<div className="mt-5">
+						<div>
+							<label htmlFor="email" className="flex font-lexend">
+								Email
+							</label>
+							<input
+								type="text"
+								id="email"
+								value={email}
+								placeholder="Enter your email"
+								onChange={(evt) => setEmail(evt.target.value)}
+								className="w-full p-3 border-2 border-black rounded-md font-lexend"
+							/>
+						</div>
+						<div className="mt-2">
+							<label
+								htmlFor="password"
+								className="flex font-lexend"
+							>
+								Password
+							</label>
+							<input
+								type="text"
+								id="password"
+								value={password}
+								placeholder="Enter your password"
+								onChange={(evt) =>
+									setPassword(evt.target.value)
+								}
+								className="w-full p-3 border-2 border-black rounded-md font-lexend"
+							/>
+						</div>
+						<div className="p-1 text-xs text-right font-lexend">
+							Forgot Password?
+						</div>
+					</div>
+
+					{/* login button */}
+					<div className="mt-5">
+						<Link to="login" className="text-xl font-archivo">
+							<button className="w-full py-3 duration-300 rounded-md shadow-neo bg-firebaseYellow hover:shadow-none hover:translate-x-1 hover:translate-y-1">
+								Login
+							</button>
+						</Link>
+					</div>
+
+					{/* seprator */}
+					<div className="flex items-center mt-5">
+						<div className="w-1/2 bg-black h-0.5 ml-10 mr-2"></div>
+						<span className="text-xs font-lexend">or</span>
+						<div className="w-1/2 bg-black h-0.5 mr-10 ml-2"></div>
+					</div>
+
+					{/* sso login buttons */}
+					<div className="mt-5">
+						<button
+							onClick={handleGoogleLogin}
+							className="flex items-center justify-center w-full p-3 border-2 border-black rounded-md"
+						>
+							<img
+								src="src/assets/google-logo.svg"
+								alt="google logo"
+								className="mr-2"
+							/>
+							<span>Login with Google</span>
+						</button>
+
+						<button className="flex items-center justify-center w-full p-3 mt-2 border-2 border-black rounded-md">
+							<img
+								src="src/assets/apple-logo.svg"
+								alt="apple logo"
+								className="mr-2"
+							/>
+							<span>Login with Apple</span>
+						</button>
+					</div>
+				</div>
 			</div>
-			<button onClick={handleLogin}>Login</button>
-			<br />
-			<br />
-			<button onClick={handleGoogleLogin}>Google</button>
-		</div>
+		</>
 	);
 }
 

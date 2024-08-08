@@ -5,9 +5,9 @@ function Home() {
 		<>
 			<div className="flex items-center p-20 ">
 				<div>
-					<div className="text-white text-8xl font-archivo">
+					<h1 className="text-white text-8xl font-archivo">
 						Firebase Auth
-					</div>
+					</h1>
 					<p className="w-3/4 text-white text-md font-lexend">
 						Simple project to help you quickly setup firebase
 						authentication with MongoDB integration in your React
