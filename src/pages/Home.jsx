@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Home() {
 	return (
 		<>
-			<div className="flex items-center p-20 ">
+			<div className="flex items-center mt-16">
 				<div>
 					<h1 className="text-white text-8xl font-archivo">
 						Firebase Auth
@@ -29,7 +29,7 @@ function Home() {
 				</div>
 				<div>
 					<img
-						src="src/assets/firebase-logo.svg"
+						src="src/assets/firebase-logo.png"
 						alt="firebase logo"
 					/>
 				</div>

@@ -49,8 +49,14 @@ function Login() {
 	return (
 		<>
 			<div className="flex w-3/5 h-auto bg-white rounded-md shadow-neo">
-				<div className="w-1/2 m-6 bg-gray-400 rounded-md">img</div>
-				<div className="w-1/2 mx-6 my-10">
+				<div className="w-1/2 m-6">
+					<img
+						src="src/assets/login-cover.png"
+						alt="img"
+						className="rounded-md h-fit"
+					/>
+				</div>
+				<div className="w-1/2 mx-6 my-20">
 					<h1 className="text-3xl text-center font-archivo">Login</h1>
 					{/* inputs */}
 					<div className="mt-5">
@@ -92,11 +98,9 @@ function Login() {
 
 					{/* login button */}
 					<div className="mt-5">
-						<Link to="login" className="text-xl font-archivo">
-							<button className="w-full py-3 duration-300 rounded-md shadow-neo bg-firebaseYellow hover:shadow-none hover:translate-x-1 hover:translate-y-1">
-								Login
-							</button>
-						</Link>
+						<button className="w-full py-3 text-xl duration-300 rounded-md shadow-neo bg-firebaseYellow hover:shadow-none hover:translate-x-1 hover:translate-y-1 font-archivo">
+							Login
+						</button>
 					</div>
 
 					{/* seprator */}
@@ -110,23 +114,35 @@ function Login() {
 					<div className="mt-5">
 						<button
 							onClick={handleGoogleLogin}
-							className="flex items-center justify-center w-full p-3 border-2 border-black rounded-md"
+							className="flex items-center justify-center w-full p-3 duration-500 border-2 border-black rounded-md hover:bg-gray-300"
 						>
 							<img
 								src="src/assets/google-logo.svg"
 								alt="google logo"
 								className="mr-2"
 							/>
-							<span>Login with Google</span>
+							<span className="font-lexend">
+								Login with Google
+							</span>
 						</button>
 
-						<button className="flex items-center justify-center w-full p-3 mt-2 border-2 border-black rounded-md">
+						<button className="flex items-center justify-center w-full p-3 mt-2 duration-500 border-2 border-black rounded-md hover:bg-gray-300">
 							<img
 								src="src/assets/apple-logo.svg"
 								alt="apple logo"
 								className="mr-2"
 							/>
-							<span>Login with Apple</span>
+							<span className="font-lexend">
+								Login with Apple
+							</span>
+						</button>
+					</div>
+
+					{/* register redirect */}
+					<div className="mt-2">
+						<span className="font-lexend">New here? </span>
+						<button className="underline font-lexend">
+							<Link to="/register">Register</Link>
 						</button>
 					</div>
 				</div>

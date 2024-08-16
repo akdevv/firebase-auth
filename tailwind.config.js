@@ -6,6 +6,7 @@ export default {
 			fontFamily: {
 				archivo: ["Archivo Black", "sans"],
 				lexend: ["Lexend", "sans"],
+				firaCode: ["Fira Code", "monospace"],
 			},
 			colors: {
 				firebaseYellow: "#FFC400",
