@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Home() {
 	return (
 		<>
-			<div className="flex items-center mt-16">
+			<div className="flex items-center">
 				<div>
 					<h1 className="text-white text-8xl font-archivo">
 						Firebase Auth

@@ -67,10 +67,10 @@ function Register() {
 					<img
 						src="src/assets/login-cover.png"
 						alt="img"
-						className="rounded-md h-fit"
+						className="w-full h-full rounded-md"
 					/>
 				</div>
-				<div className="w-1/2 mx-6 my-10">
+				<div className="w-1/2 mx-6 my-6">
 					<h1 className="text-3xl text-center font-archivo">
 						Register
 					</h1>
