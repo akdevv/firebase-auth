@@ -1,9 +1,20 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
 	const [userData, setUserData] = useState(null);
+
+	const navigate = useNavigate();
+
 	useEffect(() => {
+		const token = localStorage.getItem("token");
+
+		if (!token) {
+			navigate("/");
+			return;
+		}
+
 		const fetchUserData = async () => {
 			try {
 				const token = localStorage.getItem("token");
@@ -13,7 +24,6 @@ function Profile() {
 				);
 
 				if (response.status === 200) {
-					console.log(response.data.message);
 					setUserData(response.data);
 				} else {
 					console.error("Failed to fetch user data!");
@@ -26,15 +36,55 @@ function Profile() {
 		fetchUserData();
 	}, []);
 
+	const handleLogout = () => {
+		localStorage.removeItem("token");
+		navigate("/");
+	};
+
 	return (
 		<>
-			<div>Profile Page</div>
-			<div>
-				{userData ? (
-					<pre>{JSON.stringify(userData, null, 2)}</pre>
-				) : (
-					<div>Loading user data...</div>
-				)}
+			<div className="flex justify-center w-auto h-auto p-10 bg-white rounded-md shadow-neo">
+				<div>
+					{userData ? (
+						<>
+							<div>
+								<img
+									src={userData.user.photoURL}
+									alt="user photo"
+									className="w-3/4 m-auto border-2 border-black rounded-full"
+								/>
+								<div className="mt-5">
+									<h2 className="text-xs text-gray-700 font-lexend">
+										Name
+									</h2>
+									<p className="text-lg underline font-lexend">
+										{userData.user.displayName}
+									</p>
+								</div>
+								<div className="mt-2">
+									<h2 className="text-xs text-gray-700 font-lexend">
+										Email
+									</h2>
+									<p className="text-lg underline font-lexend">
+										{userData.user.email}
+									</p>
+								</div>
+							</div>
+							<div className="mt-5">
+								<button
+									className="w-full py-3 text-xl duration-300 rounded-md shadow-neo bg-firebaseRed hover:shadow-none hover:translate-x-1 hover:translate-y-1 font-archivo"
+									onClick={handleLogout}
+								>
+									Logout
+								</button>
+							</div>
+						</>
+					) : (
+						<div className="text-lg font-lexend">
+							Loading user data...
+						</div>
+					)}
+				</div>
 			</div>
 		</>
 	);

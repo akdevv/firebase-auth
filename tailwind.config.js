@@ -11,6 +11,7 @@ export default {
 			colors: {
 				firebaseYellow: "#FFC400",
 				firebaseOrange: "#FF9100",
+				firebaseRed: "#DD2C00",
 			},
 			boxShadow: {
 				neo: "5px 5px 0px 0px rgba(0, 0, 0, 1)",
