@@ -1,11 +1,11 @@
 import axios from "axios";
-import { useState } from "react";
 import {
 	updateProfile,
 	signInWithPopup,
 	createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
 import { auth, googleProvider } from "../config/firebase";
 
 function Register() {
@@ -16,7 +16,7 @@ function Register() {
 	const navigate = useNavigate();
 
 	// Email Register
-	const handleRegister = async () => {
+	const handleRegister = useCallback(async () => {
 		try {
 			const data = await createUserWithEmailAndPassword(
 				auth,
@@ -42,7 +42,7 @@ function Register() {
 		} catch (err) {
 			console.error("Something went wrong!", err.message);
 		}
-	};
+	}, [name, email, password, navigate]);
 
 	// Google Register
 	const handleGoogleRegister = async () => {
@@ -59,6 +59,20 @@ function Register() {
 			console.error("Something went wrong!", err.message);
 		}
 	};
+
+	useEffect(() => {
+		const handleKeyDown = (evt) => {
+			if (evt.key === "Enter") {
+				evt.preventDefault();
+				handleRegister();
+			}
+		};
+		document.addEventListener("keydown", handleKeyDown);
+
+		return () => {
+			document.removeEventListener("keydown", handleKeyDown);
+		};
+	}, [handleRegister]);
 
 	return (
 		<>
@@ -135,7 +149,7 @@ function Register() {
 					{/* sso register buttons */}
 					<div className="mt-5">
 						<button
-							onClick={() => {}}
+							onClick={handleGoogleRegister}
 							className="flex items-center justify-center w-full p-3 duration-500 border-2 border-black rounded-md hover:bg-gray-300"
 						>
 							<img

@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState, useCallback } from "react";
 import { auth, googleProvider } from "../config/firebase";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 
@@ -8,8 +8,10 @@ function Login() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
+	const navigate = useNavigate();
+
 	// Email Login
-	const handleLogin = async () => {
+	const handleLogin = useCallback(async () => {
 		try {
 			const data = await signInWithEmailAndPassword(
 				auth,
@@ -22,11 +24,15 @@ function Login() {
 				`${import.meta.env.VITE_BACKEND_DOMAIN}/api/auth/login`,
 				{ token }
 			);
+			if (response.status === 200) {
+				localStorage.setItem("token", token);
+				navigate("/profile");
+			}
 			console.log("Backend response = ", response.data);
 		} catch (err) {
 			console.error("Something went wrong!", err.message);
 		}
-	};
+	}, [email, password, navigate]);
 
 	// Google Login
 	const handleGoogleLogin = async () => {
@@ -38,6 +44,10 @@ function Login() {
 				`${import.meta.env.VITE_BACKEND_DOMAIN}/api/auth/google-auth`,
 				{ token }
 			);
+			if (response.status === 200) {
+				localStorage.setItem("token", token);
+				navigate("/profile");
+			}
 			console.log("response = ", response.data.user);
 		} catch (err) {
 			console.error("Something went wrong!", err.message);
@@ -45,6 +55,20 @@ function Login() {
 	};
 
 	// add apple login also
+
+	useEffect(() => {
+		const handleKeyDown = (evt) => {
+			if (evt.key === "Enter") {
+				evt.preventDefault();
+				handleLogin();
+			}
+		};
+		document.addEventListener("keydown", handleKeyDown);
+
+		return () => {
+			document.removeEventListener("keydown", handleKeyDown);
+		};
+	}, [handleLogin]);
 
 	return (
 		<>
@@ -98,7 +122,10 @@ function Login() {
 
 					{/* login button */}
 					<div className="mt-5">
-						<button className="w-full py-3 text-xl duration-300 rounded-md shadow-neo bg-firebaseYellow hover:shadow-none hover:translate-x-1 hover:translate-y-1 font-archivo">
+						<button
+							className="w-full py-3 text-xl duration-300 rounded-md shadow-neo bg-firebaseYellow hover:shadow-none hover:translate-x-1 hover:translate-y-1 font-archivo"
+							onClick={handleLogin}
+						>
 							Login
 						</button>
 					</div>
