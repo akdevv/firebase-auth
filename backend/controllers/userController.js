@@ -1,10 +1,12 @@
 import admin from "../config/firebaseAdmin.js";
+import User from "../models/user.models.js";
 
 const getUser = async (req, res) => {
 	const { token } = req.body;
 	try {
 		const decodedToken = await admin.auth().verifyIdToken(token);
-		const user = await admin.auth().getUser(decodedToken.uid);
+		const uid = decodedToken.uid;
+		const user = await User.findOne({ userId: uid });
 
 		return res.status(200).json({
 			status: 200,

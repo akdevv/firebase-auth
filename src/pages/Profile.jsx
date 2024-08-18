@@ -51,14 +51,14 @@ function Profile() {
 								<img
 									src={userData.user.photoURL}
 									alt="user photo"
-									className="w-3/4 m-auto border-2 border-black rounded-full"
+									className="m-auto border-2 border-black rounded-full w-36"
 								/>
 								<div className="mt-5">
 									<h2 className="text-xs text-gray-700 font-lexend">
 										Name
 									</h2>
 									<p className="text-lg underline font-lexend">
-										{userData.user.displayName}
+										{userData.user.name}
 									</p>
 								</div>
 								<div className="mt-2">

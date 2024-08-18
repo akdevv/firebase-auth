@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState, useCallback } from "react";
-import { auth, googleProvider } from "../config/firebase";
+import { auth, githubProvider, googleProvider } from "../config/firebase";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 
 function Login() {
@@ -54,7 +54,24 @@ function Login() {
 		}
 	};
 
-	// add apple login also
+	// GitHub Login
+	const handleGithubLogin = async () => {
+		try {
+			const data = await signInWithPopup(auth, githubProvider);
+			const token = await data.user.getIdToken();
+
+			const response = await axios.post(
+				`${import.meta.env.VITE_BACKEND_DOMAIN}/api/auth/github-auth`,
+				{ token }
+			);
+			if (response.status === 200) {
+				localStorage.setItem("token", token);
+				navigate("/profile");
+			}
+		} catch (err) {
+			console.error("Something went wrong!", err.message);
+		}
+	};
 
 	useEffect(() => {
 		const handleKeyDown = (evt) => {
@@ -105,7 +122,7 @@ function Login() {
 								Password
 							</label>
 							<input
-								type="text"
+								type="password"
 								id="password"
 								value={password}
 								placeholder="Enter your password"
@@ -153,14 +170,17 @@ function Login() {
 							</span>
 						</button>
 
-						<button className="flex items-center justify-center w-full p-3 mt-2 duration-500 border-2 border-black rounded-md hover:bg-gray-300">
+						<button
+							className="flex items-center justify-center w-full p-3 mt-2 duration-500 border-2 border-black rounded-md hover:bg-gray-300"
+							onClick={handleGithubLogin}
+						>
 							<img
-								src="src/assets/apple-logo.svg"
-								alt="apple logo"
+								src="src/assets/github-logo.svg"
+								alt="github logo"
 								className="mr-2"
 							/>
 							<span className="font-lexend">
-								Login with Apple
+								Login with GitHub
 							</span>
 						</button>
 					</div>

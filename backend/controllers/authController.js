@@ -51,7 +51,7 @@ const register = async (req, res) => {
 				userId: uid,
 				name,
 				email,
-				photoURL: picture || null,
+				photoURL: picture || "https://placehold.co/400",
 			});
 			await user.save();
 		}
@@ -69,6 +69,7 @@ const register = async (req, res) => {
 	}
 };
 
+// Google Route
 const loginOrRegisterGoogle = async (req, res) => {
 	const { token } = req.body;
 
@@ -83,7 +84,7 @@ const loginOrRegisterGoogle = async (req, res) => {
 				userId: uid,
 				name,
 				email,
-				photoURL: picture || null,
+				photoURL: picture || "https://placehold.co/400",
 			});
 			await user.save();
 		}
@@ -102,4 +103,38 @@ const loginOrRegisterGoogle = async (req, res) => {
 	}
 };
 
-export { login, register, loginOrRegisterGoogle };
+// GitHub Route
+const loginOrRegisterGithub = async (req, res) => {
+	const { token } = req.body;
+
+	try {
+		const decodedToken = await admin.auth().verifyIdToken(token);
+		const { uid, name, email, picture } = decodedToken;
+
+		// Check if the user exists in MongoDB
+		let user = await User.findOne({ userId: uid });
+		if (!user) {
+			user = new User({
+				userId: uid,
+				name,
+				email,
+				photoURL: picture || "https://placehold.co/400",
+			});
+			await user.save();
+		}
+
+		return res.status(200).json({
+			status: 200,
+			data: user,
+			message: "User logged in successfully!",
+		});
+	} catch (err) {
+		console.error("Error verifying token: ", err.message);
+		return res.status(401).json({
+			status: 401,
+			error: "Unauthorized",
+		});
+	}
+};
+
+export { login, register, loginOrRegisterGoogle, loginOrRegisterGithub };
