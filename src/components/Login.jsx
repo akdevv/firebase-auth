@@ -28,7 +28,6 @@ function Login() {
 				localStorage.setItem("token", token);
 				navigate("/profile");
 			}
-			console.log("Backend response = ", response.data);
 		} catch (err) {
 			console.error("Something went wrong!", err.message);
 		}
@@ -48,7 +47,6 @@ function Login() {
 				localStorage.setItem("token", token);
 				navigate("/profile");
 			}
-			console.log("response = ", response.data.user);
 		} catch (err) {
 			console.error("Something went wrong!", err.message);
 		}

@@ -38,7 +38,6 @@ function Register() {
 				localStorage.setItem("token", token);
 				navigate("/profile");
 			}
-			console.log("Backend response = ", response.data);
 		} catch (err) {
 			console.error("Something went wrong!", err.message);
 		}
