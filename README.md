@@ -60,9 +60,9 @@ Here's the overview of the project's folder structure:
 
 ## Screenshots
 
-![Home Page](/src/assets/screenshots/HomePage.png)
-![Login Page](/src/assets/screenshots/LoginPage.png)
-![Register Page](/src/assets/screenshots/RegisterPage.png)
+![Home Page](/src/assets/HomePage.png)
+![Login Page](/src/assets/LoginPage.png)
+![Register Page](/src/assets/RegisterPage.png)
 
 ## Getting Started
 

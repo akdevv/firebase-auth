@@ -100,7 +100,7 @@ function Register() {
 			<div className="flex w-3/5 h-auto bg-white rounded-md shadow-neo">
 				<div className="w-1/2 m-6">
 					<img
-						src="src/assets/login-cover.png"
+						src="/login-cover.png"
 						alt="img"
 						className="w-full h-full rounded-md"
 					/>
@@ -174,7 +174,7 @@ function Register() {
 							className="flex items-center justify-center w-full p-3 duration-500 border-2 border-black rounded-md hover:bg-gray-300"
 						>
 							<img
-								src="src/assets/google-logo.svg"
+								src="/google-logo.svg"
 								alt="google logo"
 								className="mr-2"
 							/>
@@ -188,7 +188,7 @@ function Register() {
 							onClick={handleGithubRegister}
 						>
 							<img
-								src="src/assets/github-logo.svg"
+								src="/github-logo.svg"
 								alt="github logo"
 								className="mr-2"
 							/>

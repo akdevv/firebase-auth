@@ -29,7 +29,7 @@ function Home() {
 				</div>
 				<div>
 					<img
-						src="src/assets/firebase-logo.png"
+						src="/firebase-logo.png"
 						alt="firebase logo"
 					/>
 				</div>
